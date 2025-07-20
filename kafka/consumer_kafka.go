@@ -7,6 +7,7 @@ import (
 	"log"
 	"math"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/segmentio/kafka-go"
@@ -25,18 +26,29 @@ func main() {
 	})
 	defer r.Close()
 
-	var lats []time.Duration
+	var latencies []time.Duration
 	ctx := context.Background()
-	for len(lats) < *n {
+	for len(latencies) < *n {
 		m, err := r.ReadMessage(ctx)
 		if err != nil {
 			log.Fatalf("read: %v", err)
 		}
+		// Business Contract: Message payload is Unix timestamp in nanoseconds as string
 		sent, _ := strconv.ParseInt(string(m.Value), 10, 64)
-		lats = append(lats, time.Since(time.Unix(0, sent)))
+		lat := time.Now().UnixNano() - sent
+		latencies = append(latencies, time.Duration(lat))
 	}
 
-	stats(lats)
+	// Calculate and output average latency in microseconds (Business Contract)
+	var sum time.Duration
+	for _, l := range latencies {
+		sum += l
+	}
+	avg := sum / time.Duration(len(latencies))
+
+	fmt.Println(avg.Microseconds()) // Output average latency in microseconds
+	// Uncomment for detailed stats:
+	// stats(latencies)
 }
 
 func stats(lats []time.Duration) {
@@ -54,4 +66,14 @@ func stats(lats []time.Duration) {
 	}
 	avg := sum / time.Duration(len(lats))
 	fmt.Printf("received %d msgs\nmin=%v max=%v avg=%v\n", len(lats), min, max, avg)
+}
+
+func split(s string) []string {
+	var a []string
+	for _, p := range strings.Split(s, ",") {
+		if t := strings.TrimSpace(p); t != "" {
+			a = append(a, t)
+		}
+	}
+	return a
 }

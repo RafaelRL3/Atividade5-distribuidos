@@ -18,13 +18,26 @@ func main() {
 	flag.Parse()
 
 	opts := mqtt.NewClientOptions().AddBroker(*broker).SetClientID("consumer")
-	lats := make([]time.Duration, 0, *n)
+	latencies := make([]time.Duration, 0, *n)
 
 	var messageHandler mqtt.MessageHandler = func(c mqtt.Client, m mqtt.Message) {
+		// Business Contract: Message payload is Unix timestamp in nanoseconds as string
 		sent, _ := strconv.ParseInt(string(m.Payload()), 10, 64)
-		lats = append(lats, time.Since(time.Unix(0, sent)))
-		if len(lats) >= *n {
-			stats(lats)
+		lat := time.Now().UnixNano() - sent
+		latencies = append(latencies, time.Duration(lat))
+
+		if len(latencies) >= *n {
+			// Calculate and output average latency in microseconds (Business Contract)
+			var sum time.Duration
+			for _, l := range latencies {
+				sum += l
+			}
+			avg := sum / time.Duration(len(latencies))
+
+			fmt.Println(avg.Microseconds()) // Output average latency in microseconds
+			// Uncomment for detailed stats:
+			// stats(latencies)
+
 			c.Disconnect(250)
 		}
 	}
@@ -38,7 +51,7 @@ func main() {
 		log.Fatal(token.Error())
 	}
 
-	// block until Disconnect in handler
+	// Block until Disconnect in handler
 	select {}
 }
 

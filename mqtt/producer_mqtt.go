@@ -23,9 +23,11 @@ func main() {
 	defer c.Disconnect(250)
 
 	for i := 0; i < *n; i++ {
+		// Business Contract: Generate Unix timestamp in nanoseconds as string payload
 		ts := time.Now().UnixNano()
-		token := c.Publish(*topic, 1, false, fmt.Sprintf("%d", ts))
+		payload := fmt.Sprintf("%d", ts) // Timestamp as string (~19-20 bytes)
+		token := c.Publish(*topic, 1, false, payload)
 		token.Wait()
 	}
-	log.Printf("published %d msgs to MQTT\n", *n)
+	log.Printf("published %d msgs to MQTT (topic: %s)\n", *n, *topic)
 }

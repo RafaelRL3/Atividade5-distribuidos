@@ -1,42 +1,60 @@
 package main
 
 import (
-    "flag"
+	"flag"
 	"fmt"
-    "log"
-    "time"
+	"log"
+	"strconv"
+	"time"
 
-    "github.com/streadway/amqp"
+	"github.com/streadway/amqp"
 )
 
 func main() {
-    n := flag.Int("n", 1000, "number of messages to publish")
-    flag.Parse()
+	n := flag.Int("n", 1000, "number of messages to expect before exiting")
+	flag.Parse()
 
-    conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
-    if err != nil {
-        log.Fatalf("dial: %v", err)
-    }
-    defer conn.Close()
+	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	if err != nil {
+		log.Fatalf("dial: %v", err)
+	}
+	defer conn.Close()
 
-    ch, err := conn.Channel()
-    if err != nil {
-        log.Fatalf("channel: %v", err)
-    }
-    defer ch.Close()
+	ch, err := conn.Channel()
+	if err != nil {
+		log.Fatalf("channel: %v", err)
+	}
+	defer ch.Close()
 
-    q, err := ch.QueueDeclare("bench_queue", false, false, false, false, nil)
-    if err != nil {
-        log.Fatalf("queue: %v", err)
-    }
+	q, err := ch.QueueDeclare("bench_queue", false, false, false, false, nil)
+	if err != nil {
+		log.Fatalf("queue: %v", err)
+	}
 
-    for i := 0; i < *n; i++ {
-        ts := time.Now().UnixNano()
-        body := []byte(fmt.Sprintf("%d", ts))
-        err = ch.Publish("", q.Name, false, false, amqp.Publishing{Body: body})
-        if err != nil {
-            log.Fatalf("publish: %v", err)
-        }
-    }
-    log.Printf("published %d messages to RabbitMQ\n", *n)
+	msgs, err := ch.Consume(q.Name, "", true, false, false, false, nil)
+	if err != nil {
+		log.Fatalf("consume: %v", err)
+	}
+
+	var latencies []time.Duration
+	for msg := range msgs {
+		// Business Contract: Message payload is Unix timestamp in nanoseconds as string
+		sent, _ := strconv.ParseInt(string(msg.Body), 10, 64)
+		lat := time.Now().UnixNano() - sent
+		latencies = append(latencies, time.Duration(lat))
+		if len(latencies) >= *n {
+			break
+		}
+	}
+
+	// Calculate and output average latency in microseconds (Business Contract)
+	var sum time.Duration
+	for _, l := range latencies {
+		sum += l
+	}
+	avg := sum / time.Duration(len(latencies))
+
+	fmt.Println(avg.Microseconds()) // Output average latency in microseconds
+	// Uncomment for detailed stats:
+	// fmt.Printf("avg=%.3fms\n", float64(avg.Nanoseconds())/1e6)
 }
