@@ -4,57 +4,49 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"math"
-	"strconv"
 	"time"
 
-	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/streadway/amqp"
 )
 
 func main() {
-	n := flag.Int("n", 1000, "messages")
-	broker := flag.String("broker", "tcp://localhost:1883", "MQTT broker URI")
-	topic := flag.String("topic", "bench/topic", "subscribe topic")
+	n := flag.Int("n", 10000, "number of messages to publish")
+	amqpURL := flag.String("amqp", "amqp://guest:guest@localhost:5672/", "AMQP connection URL")
+	queueName := flag.String("queue", "bench_queue", "queue name")
 	flag.Parse()
 
-	opts := mqtt.NewClientOptions().AddBroker(*broker).SetClientID("consumer")
-	lats := make([]time.Duration, 0, *n)
+	conn, err := amqp.Dial(*amqpURL)
+	if err != nil {
+		log.Fatalf("dial: %v", err)
+	}
+	defer conn.Close()
 
-	var messageHandler mqtt.MessageHandler = func(c mqtt.Client, m mqtt.Message) {
-		sent, _ := strconv.ParseInt(string(m.Payload()), 10, 64)
-		lats = append(lats, time.Since(time.Unix(0, sent)))
-		if len(lats) >= *n {
-			stats(lats)
-			c.Disconnect(250)
+	ch, err := conn.Channel()
+	if err != nil {
+		log.Fatalf("channel: %v", err)
+	}
+	defer ch.Close()
+
+	// Declare queue with consistent settings
+	q, err := ch.QueueDeclare(*queueName, false, false, false, false, nil)
+	if err != nil {
+		log.Fatalf("queue declare: %v", err)
+	}
+
+	for i := 0; i < *n; i++ {
+		// Business Contract: Send current timestamp as nanoseconds since Unix epoch
+		ts := time.Now().UnixNano()
+		body := []byte(fmt.Sprintf("%d", ts))
+
+		// Publish with at-least-once delivery guarantee
+		err = ch.Publish("", q.Name, false, false, amqp.Publishing{
+			DeliveryMode: amqp.Persistent, // Ensure message persistence
+			Body:         body,
+		})
+		if err != nil {
+			log.Fatalf("publish: %v", err)
 		}
 	}
-	opts.SetDefaultPublishHandler(messageHandler)
 
-	c := mqtt.NewClient(opts)
-	if token := c.Connect(); token.Wait() && token.Error() != nil {
-		log.Fatal(token.Error())
-	}
-	if token := c.Subscribe(*topic, 1, nil); token.Wait() && token.Error() != nil {
-		log.Fatal(token.Error())
-	}
-
-	// block until Disconnect in handler
-	select {}
-}
-
-func stats(lats []time.Duration) {
-	var sum time.Duration
-	min := time.Duration(math.MaxInt64)
-	max := time.Duration(0)
-	for _, l := range lats {
-		if l < min {
-			min = l
-		}
-		if l > max {
-			max = l
-		}
-		sum += l
-	}
-	avg := sum / time.Duration(len(lats))
-	fmt.Printf("received %d msgs\nmin=%v max=%v avg=%v\n", len(lats), min, max, avg)
+	log.Printf("Published %d messages to RabbitMQ (timestamp format: nanoseconds since Unix epoch)", *n)
 }
