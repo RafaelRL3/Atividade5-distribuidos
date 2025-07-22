@@ -94,6 +94,106 @@
 
 
 
+__________________________________________________________________---
+
+
+
+
+
+--- Iteration #1  200000 messages ---
+2025/07/21 23:24:30 published 200000 messages to MQTT
+1891
+--- Iteration #2  200000 messages ---
+2025/07/21 23:24:35 published 200000 messages to MQTT
+1481
+--- Iteration #3  200000 messages ---
+2025/07/21 23:24:39 published 200000 messages to MQTT
+1867
+--- Iteration #4  200000 messages ---
+2025/07/21 23:24:43 published 200000 messages to MQTT
+1405
+--- Iteration #5  200000 messages ---
+2025/07/21 23:24:47 published 200000 messages to MQTT
+1725
+--- Iteration #6  200000 messages ---
+2025/07/21 23:24:51 published 200000 messages to MQTT
+2395
+--- Iteration #7  200000 messages ---
+2025/07/21 23:24:56 published 200000 messages to MQTT
+1884
+--- Iteration #8  200000 messages ---
+2025/07/21 23:25:00 published 200000 messages to MQTT
+2291
+--- Iteration #9  200000 messages ---
+2025/07/21 23:25:05 published 200000 messages to MQTT
+1890
+--- Iteration #10  200000 messages ---
+2025/07/21 23:25:10 published 200000 messages to MQTT
+1867
+--- Iteration #11  200000 messages ---
+2025/07/21 23:25:14 published 200000 messages to MQTT
+2870
+--- Iteration #12  200000 messages ---
+2025/07/21 23:25:19 published 200000 messages to MQTT
+1691
+--- Iteration #13  200000 messages ---
+2025/07/21 23:25:24 published 200000 messages to MQTT
+2157
+--- Iteration #14  200000 messages ---
+2025/07/21 23:25:28 published 200000 messages to MQTT
+1680
+--- Iteration #15  200000 messages ---
+2025/07/21 23:25:33 published 200000 messages to MQTT
+1935
+--- Iteration #16  200000 messages ---
+2025/07/21 23:25:38 published 200000 messages to MQTT
+1615
+--- Iteration #17  200000 messages ---
+2025/07/21 23:25:42 published 200000 messages to MQTT
+1659
+--- Iteration #18  200000 messages ---
+2025/07/21 23:25:47 published 200000 messages to MQTT
+1671
+--- Iteration #19  200000 messages ---
+2025/07/21 23:25:52 published 200000 messages to MQTT
+1736
+--- Iteration #20  200000 messages ---
+2025/07/21 23:25:56 published 200000 messages to MQTT
+2292
+--- Iteration #21  200000 messages ---
+2025/07/21 23:26:01 published 200000 messages to MQTT
+1723
+--- Iteration #22  200000 messages ---
+2025/07/21 23:26:06 published 200000 messages to MQTT
+1683
+--- Iteration #23  200000 messages ---
+2025/07/21 23:26:10 published 200000 messages to MQTT
+2503
+--- Iteration #24  200000 messages ---
+2025/07/21 23:26:15 published 200000 messages to MQTT
+1531
+--- Iteration #25  200000 messages ---
+2025/07/21 23:26:19 published 200000 messages to MQTT
+1912
+--- Iteration #26  200000 messages ---
+2025/07/21 23:26:24 published 200000 messages to MQTT
+1768
+--- Iteration #27  200000 messages ---
+2025/07/21 23:26:29 published 200000 messages to MQTT
+2208
+--- Iteration #28  200000 messages ---
+2025/07/21 23:26:34 published 200000 messages to MQTT
+1786
+--- Iteration #29  200000 messages ---
+2025/07/21 23:26:38 published 200000 messages to MQTT
+1835
+--- Iteration #30  200000 messages ---
+2025/07/21 23:26:43 published 200000 messages to MQTT
+1849
+
+
+
+
 
 
 
