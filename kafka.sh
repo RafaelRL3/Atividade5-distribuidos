@@ -1,36 +1,45 @@
-# !/usr/bin/env bash
+#!/usr/bin/env bash
+#
+# Benchmark Kafka-go – stack sobe e desce a cada iteração
 set -euo pipefail
 
-BROKERS="localhost:9092"
+# ===================== CONFIG =====================
 TOPIC="bench_topic"
-MSGS=10000
-ROUNDS=30
+BROKER_EXT="localhost:9094"
+N_MSG=10000
+ITER=30
+# ==================================================
 
-# cria tópico se não existir (idempotente)
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server "$BROKERS" \
-  --create --if-not-exists \
-  --topic "$TOPIC" \
-  --partitions 1 \
-  --replication-factor 1 2>/dev/null || true
+run_quiet() { "$@" >/dev/null 2>&1; }           # executa sem stdout/stderr
+wait_for_port() { local hp=$1; until nc -z "${hp%:*}" "${hp#*:}" 2>/dev/null; do sleep 1; done; }
 
-echo "Kafka benchmark — $ROUNDS runs × $MSGS msgs"
+for i in $(seq 1 "$ITER"); do
+  run_quiet docker compose up -d
+  run_quiet wait_for_port "$BROKER_EXT"
 
-for ((i=1; i<=ROUNDS; i++)); do
-  echo "---- Iteration #$i ----"
+  # cria tópico (ignora se já existir)
+  run_quiet docker compose exec kafka \
+      kafka-topics.sh --create \
+      --topic "$TOPIC" \
+      --bootstrap-server kafka:9092 \
+      --partitions 1 --replication-factor 1 || true
 
-  GROUP="bench-$i-$(date +%s%N)"   # GroupID único por rod.
+  TMP=$(mktemp)         # captura média impressa pelo consumidor
 
-  # consumidor em background
-  go run kafka/consumer_kafka.go -brokers "$BROKERS" -topic "$TOPIC" -n "$MSGS" -group "$GROUP" &
-  CPID=$!
+  go run consumer_kafka.go \
+      -n "$N_MSG" -broker "$BROKER_EXT" -topic "$TOPIC" >"$TMP" &
+  CONS_PID=$!
 
-  sleep 0.5   # mínima margem para conectar
+  sleep 1
+  run_quiet go run producer_kafka.go \
+      -n "$N_MSG" -broker "$BROKER_EXT" -topic "$TOPIC"
 
-  # produtor envia lote
-  go run kafka/producer_kafka.go -brokers "$BROKERS" -topic "$TOPIC" -n "$MSGS"
+  wait "$CONS_PID"
 
-  # espera consumidor terminar
-  wait "$CPID"
+  avg_us=$(tail -n1 "$TMP" | tr -d '\r\n')
+  rm -f "$TMP"
+
+  printf 'Iter %2d: %s µs\n' "$i" "$avg_us"   # ← unidade incluída
+
+  run_quiet docker compose down --volumes --remove-orphans
 done
-
