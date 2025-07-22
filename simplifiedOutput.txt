@@ -1,0 +1,187 @@
+2025/07/08 19:29:51 [simplified‑rabbitmq] listening on :9000 …
+--- Iteration #1 10000 messages---
+2025/07/08 19:29:54 published 10000 messages
+11759
+--- Iteration #2 10000 messages---
+2025/07/08 19:29:56 published 10000 messages
+14289
+--- Iteration #3 10000 messages---
+2025/07/08 19:29:58 published 10000 messages
+16951
+--- Iteration #4 10000 messages---
+2025/07/08 19:30:00 published 10000 messages
+6898
+--- Iteration #5 10000 messages---
+2025/07/08 19:30:02 published 10000 messages
+8859
+--- Iteration #6 10000 messages---
+2025/07/08 19:30:04 published 10000 messages
+51642
+--- Iteration #7 10000 messages---
+2025/07/08 19:30:06 published 10000 messages
+41389
+--- Iteration #8 10000 messages---
+2025/07/08 19:30:08 published 10000 messages
+23759
+--- Iteration #9 10000 messages---
+2025/07/08 19:30:10 published 10000 messages
+10202
+--- Iteration #10 10000 messages---
+2025/07/08 19:30:12 published 10000 messages
+9154
+--- Iteration #11 10000 messages---
+2025/07/08 19:30:14 published 10000 messages
+23104
+--- Iteration #12 10000 messages---
+2025/07/08 19:30:17 published 10000 messages
+13375
+--- Iteration #13 10000 messages---
+2025/07/08 19:30:18 published 10000 messages
+7575
+--- Iteration #14 10000 messages---
+2025/07/08 19:30:20 published 10000 messages
+7612
+--- Iteration #15 10000 messages---
+2025/07/08 19:30:22 published 10000 messages
+3060
+--- Iteration #16 10000 messages---
+2025/07/08 19:30:24 published 10000 messages
+9470
+--- Iteration #17 10000 messages---
+2025/07/08 19:30:25 published 10000 messages
+7108
+--- Iteration #18 10000 messages---
+2025/07/08 19:30:27 published 10000 messages
+3188
+--- Iteration #19 10000 messages---
+2025/07/08 19:30:29 published 10000 messages
+3505
+--- Iteration #20 10000 messages---
+2025/07/08 19:30:31 published 10000 messages
+10863
+--- Iteration #21 10000 messages---
+2025/07/08 19:30:33 published 10000 messages
+29073
+--- Iteration #22 10000 messages---
+2025/07/08 19:30:34 published 10000 messages
+6970
+--- Iteration #23 10000 messages---
+2025/07/08 19:30:36 published 10000 messages
+3667
+--- Iteration #24 10000 messages---
+2025/07/08 19:30:38 published 10000 messages
+9660
+--- Iteration #25 10000 messages---
+2025/07/08 19:30:40 published 10000 messages
+10660
+--- Iteration #26 10000 messages---
+2025/07/08 19:30:42 published 10000 messages
+10491
+--- Iteration #27 10000 messages---
+2025/07/08 19:30:44 published 10000 messages
+13049
+--- Iteration #28 10000 messages---
+2025/07/08 19:30:45 published 10000 messages
+6748
+--- Iteration #29 10000 messages---
+2025/07/08 19:30:47 published 10000 messages
+6134
+--- Iteration #30 10000 messages---
+2025/07/08 19:30:49 published 10000 messages
+4383
+
+
+
+-------------------------------------------------------------------------
+
+
+--- Iteration #1 200000 messages---
+2025/07/08 20:02:38 published 200000 messages
+27404
+--- Iteration #2 200000 messages---
+2025/07/08 20:02:52 published 200000 messages
+64473
+--- Iteration #3 200000 messages---
+2025/07/08 20:03:04 published 200000 messages
+12932
+--- Iteration #4 200000 messages---
+2025/07/08 20:03:18 published 200000 messages
+14657
+--- Iteration #5 200000 messages---
+2025/07/08 20:03:31 published 200000 messages
+25281
+--- Iteration #6 200000 messages---
+2025/07/08 20:03:44 published 200000 messages
+13344
+--- Iteration #7 200000 messages---
+2025/07/08 20:03:56 published 200000 messages
+27401
+--- Iteration #8 200000 messages---
+2025/07/08 20:04:07 published 200000 messages
+26172
+--- Iteration #9 200000 messages---
+2025/07/08 20:04:20 published 200000 messages
+16285
+--- Iteration #10 200000 messages---
+2025/07/08 20:04:31 published 200000 messages
+29992
+--- Iteration #11 200000 messages---
+2025/07/08 20:04:44 published 200000 messages
+33353
+--- Iteration #12 200000 messages---
+2025/07/08 20:04:55 published 200000 messages
+42018
+--- Iteration #13 200000 messages---
+2025/07/08 20:05:07 published 200000 messages
+40170
+--- Iteration #14 200000 messages---
+2025/07/08 20:05:18 published 200000 messages
+31068
+--- Iteration #15 200000 messages---
+2025/07/08 20:05:30 published 200000 messages
+45252
+--- Iteration #16 200000 messages---
+2025/07/08 20:05:42 published 200000 messages
+18112
+--- Iteration #17 200000 messages---
+2025/07/08 20:05:54 published 200000 messages
+30248
+--- Iteration #18 200000 messages---
+2025/07/08 20:06:07 published 200000 messages
+37411
+--- Iteration #19 200000 messages---
+2025/07/08 20:06:19 published 200000 messages
+45507
+--- Iteration #20 200000 messages---
+2025/07/08 20:06:32 published 200000 messages
+16206
+--- Iteration #21 200000 messages---
+2025/07/08 20:06:43 published 200000 messages
+64954
+--- Iteration #22 200000 messages---
+2025/07/08 20:06:54 published 200000 messages
+34715
+--- Iteration #23 200000 messages---
+2025/07/08 20:07:07 published 200000 messages
+41418
+--- Iteration #24 200000 messages---
+2025/07/08 20:07:20 published 200000 messages
+40117
+--- Iteration #25 200000 messages---
+2025/07/08 20:07:32 published 200000 messages
+64656
+--- Iteration #26 200000 messages---
+2025/07/08 20:07:47 published 200000 messages
+68310
+--- Iteration #27 200000 messages---
+2025/07/08 20:07:58 published 200000 messages
+59800
+--- Iteration #28 200000 messages---
+2025/07/08 20:08:10 published 200000 messages
+36540
+--- Iteration #29 200000 messages---
+2025/07/08 20:08:22 published 200000 messages
+15443
+--- Iteration #30 200000 messages---
+2025/07/08 20:08:39 published 200000 messages
+65877

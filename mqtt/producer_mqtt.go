@@ -10,22 +10,26 @@ import (
 )
 
 func main() {
-	n := flag.Int("n", 1000, "messages")
+	n := flag.Int("n", 1000, "number of messages to publish")
 	broker := flag.String("broker", "tcp://localhost:1883", "MQTT broker URI")
-	topic := flag.String("topic", "bench/topic", "publish topic")
+	topic := flag.String("topic", "bench/topic", "MQTT topic")
 	flag.Parse()
 
-	opts := mqtt.NewClientOptions().AddBroker(*broker).SetClientID("producer")
-	c := mqtt.NewClient(opts)
-	if token := c.Connect(); token.Wait() && token.Error() != nil {
-		log.Fatal(token.Error())
+	opts := mqtt.NewClientOptions().AddBroker(*broker)
+	client := mqtt.NewClient(opts)
+	if token := client.Connect(); token.Wait() && token.Error() != nil {
+		log.Fatalf("connect: %v", token.Error())
 	}
-	defer c.Disconnect(250)
+	defer client.Disconnect(250)
 
 	for i := 0; i < *n; i++ {
 		ts := time.Now().UnixNano()
-		token := c.Publish(*topic, 1, false, fmt.Sprintf("%d", ts))
+		payload := fmt.Sprintf("%d", ts)
+		token := client.Publish(*topic, 0, false, payload)
 		token.Wait()
+		if token.Error() != nil {
+			log.Fatalf("publish: %v", token.Error())
+		}
 	}
-	log.Printf("published %d msgs to MQTT\n", *n)
+	log.Printf("published %d messages to MQTT\n", *n)
 }

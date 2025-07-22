@@ -1,25 +1,36 @@
-#!/usr/bin/env bash
+# !/usr/bin/env bash
 set -euo pipefail
 
-MSGS=10
+BROKERS="localhost:9092"
+TOPIC="bench_topic"
+MSGS=10000
 ROUNDS=30
-TOPIC=bench_topic
 
-# cria o tópico caso não exista
-docker exec -it kafka kafka-topics.sh \
-  --create --topic ${TOPIC} \
-  --bootstrap-server localhost:9092 \
-  --partitions 1 --replication-factor 1 2>/dev/null || true
+# cria tópico se não existir (idempotente)
+docker exec kafka kafka-topics.sh \
+  --bootstrap-server "$BROKERS" \
+  --create --if-not-exists \
+  --topic "$TOPIC" \
+  --partitions 1 \
+  --replication-factor 1 2>/dev/null || true
 
-for i in $(seq 1 $ROUNDS); do
-  echo "---- Iteration #$i ($MSGS msgs) ----"
+echo "Kafka benchmark — $ROUNDS runs × $MSGS msgs"
 
-  GROUP="bench-$i"                             # grupo único p/ cada rodada
-  go run kafka/consumer_kafka.go -n $MSGS -group $GROUP &  # consumidor
-  PID=$!
+for ((i=1; i<=ROUNDS; i++)); do
+  echo "---- Iteration #$i ----"
 
-  sleep 1
-  go run kafka/producer_kafka.go -n $MSGS                 # produtor
+  GROUP="bench-$i-$(date +%s%N)"   # GroupID único por rod.
 
-  wait $PID
+  # consumidor em background
+  go run kafka/consumer_kafka.go -brokers "$BROKERS" -topic "$TOPIC" -n "$MSGS" -group "$GROUP" &
+  CPID=$!
+
+  sleep 0.5   # mínima margem para conectar
+
+  # produtor envia lote
+  go run kafka/producer_kafka.go -brokers "$BROKERS" -topic "$TOPIC" -n "$MSGS"
+
+  # espera consumidor terminar
+  wait "$CPID"
 done
+

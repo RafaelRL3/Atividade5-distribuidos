@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"math"
 	"strconv"
 	"time"
 
@@ -12,49 +11,38 @@ import (
 )
 
 func main() {
-	n := flag.Int("n", 1000, "messages")
+	n := flag.Int("n", 1000, "number of messages to expect before exiting")
 	broker := flag.String("broker", "tcp://localhost:1883", "MQTT broker URI")
-	topic := flag.String("topic", "bench/topic", "subscribe topic")
+	topic := flag.String("topic", "bench/topic", "MQTT topic")
 	flag.Parse()
 
-	opts := mqtt.NewClientOptions().AddBroker(*broker).SetClientID("consumer")
-	lats := make([]time.Duration, 0, *n)
+	opts := mqtt.NewClientOptions().AddBroker(*broker)
+	client := mqtt.NewClient(opts)
+	if token := client.Connect(); token.Wait() && token.Error() != nil {
+		log.Fatalf("connect: %v", token.Error())
+	}
+	defer client.Disconnect(250)
 
-	var messageHandler mqtt.MessageHandler = func(c mqtt.Client, m mqtt.Message) {
-		sent, _ := strconv.ParseInt(string(m.Payload()), 10, 64)
-		lats = append(lats, time.Since(time.Unix(0, sent)))
-		if len(lats) >= *n {
-			stats(lats)
-			c.Disconnect(250)
+	latencies := make([]time.Duration, 0, *n)
+	done := make(chan struct{})
+
+	if token := client.Subscribe(*topic, 0, func(_ mqtt.Client, msg mqtt.Message) {
+		sent, _ := strconv.ParseInt(string(msg.Payload()), 10, 64)
+		lat := time.Now().UnixNano() - sent
+		latencies = append(latencies, time.Duration(lat))
+		if len(latencies) >= *n {
+			close(done)
 		}
-	}
-	opts.SetDefaultPublishHandler(messageHandler)
-
-	c := mqtt.NewClient(opts)
-	if token := c.Connect(); token.Wait() && token.Error() != nil {
-		log.Fatal(token.Error())
-	}
-	if token := c.Subscribe(*topic, 1, nil); token.Wait() && token.Error() != nil {
-		log.Fatal(token.Error())
+	}); token.Wait() && token.Error() != nil {
+		log.Fatalf("subscribe: %v", token.Error())
 	}
 
-	// block until Disconnect in handler
-	select {}
-}
+	<-done
 
-func stats(lats []time.Duration) {
 	var sum time.Duration
-	min := time.Duration(math.MaxInt64)
-	max := time.Duration(0)
-	for _, l := range lats {
-		if l < min {
-			min = l
-		}
-		if l > max {
-			max = l
-		}
+	for _, l := range latencies {
 		sum += l
 	}
-	avg := sum / time.Duration(len(lats))
-	fmt.Printf("received %d msgs\nmin=%v max=%v avg=%v\n", len(lats), min, max, avg)
+	avg := sum / time.Duration(len(latencies))
+	fmt.Println(avg.Microseconds()) // micro-segundos
 }

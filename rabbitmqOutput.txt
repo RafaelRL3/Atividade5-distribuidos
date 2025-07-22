@@ -1,0 +1,190 @@
+--- Iteration #1 10000 messages---
+2025/07/08 19:32:02 published 10000 messages to RabbitMQ
+7313
+--- Iteration #2 10000 messages---
+2025/07/08 19:32:04 published 10000 messages to RabbitMQ
+8839
+--- Iteration #3 10000 messages---
+2025/07/08 19:32:05 published 10000 messages to RabbitMQ
+7735
+--- Iteration #4 10000 messages---
+2025/07/08 19:32:07 published 10000 messages to RabbitMQ
+7533
+--- Iteration #5 10000 messages---
+2025/07/08 19:32:09 published 10000 messages to RabbitMQ
+8362
+--- Iteration #6 10000 messages---
+2025/07/08 19:32:11 published 10000 messages to RabbitMQ
+13429
+--- Iteration #7 10000 messages---
+2025/07/08 19:32:13 published 10000 messages to RabbitMQ
+4909
+--- Iteration #8 10000 messages---
+2025/07/08 19:32:14 published 10000 messages to RabbitMQ
+10450
+--- Iteration #9 10000 messages---
+2025/07/08 19:32:16 published 10000 messages to RabbitMQ
+6755
+--- Iteration #10 10000 messages---
+2025/07/08 19:32:18 published 10000 messages to RabbitMQ
+9728
+--- Iteration #11 10000 messages---
+2025/07/08 19:32:19 published 10000 messages to RabbitMQ
+9978
+--- Iteration #12 10000 messages---
+2025/07/08 19:32:21 published 10000 messages to RabbitMQ
+10383
+--- Iteration #13 10000 messages---
+2025/07/08 19:32:23 published 10000 messages to RabbitMQ
+5857
+--- Iteration #14 10000 messages---
+2025/07/08 19:32:24 published 10000 messages to RabbitMQ
+11061
+--- Iteration #15 10000 messages---
+2025/07/08 19:32:26 published 10000 messages to RabbitMQ
+6805
+--- Iteration #16 10000 messages---
+2025/07/08 19:32:28 published 10000 messages to RabbitMQ
+8795
+--- Iteration #17 10000 messages---
+2025/07/08 19:32:29 published 10000 messages to RabbitMQ
+4354
+--- Iteration #18 10000 messages---
+2025/07/08 19:32:31 published 10000 messages to RabbitMQ
+9526
+--- Iteration #19 10000 messages---
+2025/07/08 19:32:33 published 10000 messages to RabbitMQ
+10148
+--- Iteration #20 10000 messages---
+2025/07/08 19:32:34 published 10000 messages to RabbitMQ
+8519
+--- Iteration #21 10000 messages---
+2025/07/08 19:32:36 published 10000 messages to RabbitMQ
+6699
+--- Iteration #22 10000 messages---
+2025/07/08 19:32:38 published 10000 messages to RabbitMQ
+11717
+--- Iteration #23 10000 messages---
+2025/07/08 19:32:39 published 10000 messages to RabbitMQ
+6870
+--- Iteration #24 10000 messages---
+2025/07/08 19:32:41 published 10000 messages to RabbitMQ
+12166
+--- Iteration #25 10000 messages---
+2025/07/08 19:32:43 published 10000 messages to RabbitMQ
+5888
+--- Iteration #26 10000 messages---
+2025/07/08 19:32:44 published 10000 messages to RabbitMQ
+6876
+--- Iteration #27 10000 messages---
+2025/07/08 19:32:46 published 10000 messages to RabbitMQ
+8122
+--- Iteration #28 10000 messages---
+2025/07/08 19:32:48 published 10000 messages to RabbitMQ
+8234
+--- Iteration #29 10000 messages---
+2025/07/08 19:32:49 published 10000 messages to RabbitMQ
+7739
+--- Iteration #30 10000 messages---
+2025/07/08 19:32:51 published 10000 messages to RabbitMQ
+10412
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+--- Iteration #1 200000 messages---
+2025/07/08 19:53:50 published 200000 messages to RabbitMQ
+4844
+--- Iteration #2 200000 messages---
+2025/07/08 19:53:58 published 200000 messages to RabbitMQ
+5712
+--- Iteration #3 200000 messages---
+2025/07/08 19:54:06 published 200000 messages to RabbitMQ
+6797
+--- Iteration #4 200000 messages---
+2025/07/08 19:54:17 published 200000 messages to RabbitMQ
+6808
+--- Iteration #5 200000 messages---
+2025/07/08 19:54:26 published 200000 messages to RabbitMQ
+5671
+--- Iteration #6 200000 messages---
+2025/07/08 19:54:35 published 200000 messages to RabbitMQ
+6296
+--- Iteration #7 200000 messages---
+2025/07/08 19:54:44 published 200000 messages to RabbitMQ
+6812
+--- Iteration #8 200000 messages---
+2025/07/08 19:54:53 published 200000 messages to RabbitMQ
+6836
+--- Iteration #9 200000 messages---
+2025/07/08 19:55:04 published 200000 messages to RabbitMQ
+7540
+--- Iteration #10 200000 messages---
+2025/07/08 19:55:13 published 200000 messages to RabbitMQ
+5184
+--- Iteration #11 200000 messages---
+2025/07/08 19:55:21 published 200000 messages to RabbitMQ
+6254
+--- Iteration #12 200000 messages---
+2025/07/08 19:55:29 published 200000 messages to RabbitMQ
+7109
+--- Iteration #13 200000 messages---
+2025/07/08 19:55:37 published 200000 messages to RabbitMQ
+6711
+--- Iteration #14 200000 messages---
+2025/07/08 19:55:47 published 200000 messages to RabbitMQ
+8190
+--- Iteration #15 200000 messages---
+2025/07/08 19:55:57 published 200000 messages to RabbitMQ
+6792
+--- Iteration #16 200000 messages---
+2025/07/08 19:56:07 published 200000 messages to RabbitMQ
+6811
+--- Iteration #17 200000 messages---
+2025/07/08 19:56:18 published 200000 messages to RabbitMQ
+6061
+--- Iteration #18 200000 messages---
+2025/07/08 19:56:27 published 200000 messages to RabbitMQ
+6283
+--- Iteration #19 200000 messages---
+2025/07/08 19:56:36 published 200000 messages to RabbitMQ
+6391
+--- Iteration #20 200000 messages---
+2025/07/08 19:56:44 published 200000 messages to RabbitMQ
+5508
+--- Iteration #21 200000 messages---
+2025/07/08 19:56:52 published 200000 messages to RabbitMQ
+6093
+--- Iteration #22 200000 messages---
+2025/07/08 19:57:01 published 200000 messages to RabbitMQ
+5245
+--- Iteration #23 200000 messages---
+2025/07/08 19:57:11 published 200000 messages to RabbitMQ
+5859
+--- Iteration #24 200000 messages---
+2025/07/08 19:57:21 published 200000 messages to RabbitMQ
+7550
+--- Iteration #25 200000 messages---
+2025/07/08 19:57:30 published 200000 messages to RabbitMQ
+6890
+--- Iteration #26 200000 messages---
+2025/07/08 19:57:40 published 200000 messages to RabbitMQ
+6257
+--- Iteration #27 200000 messages---
+2025/07/08 19:57:50 published 200000 messages to RabbitMQ
+6921
+--- Iteration #28 200000 messages---
+2025/07/08 19:57:59 published 200000 messages to RabbitMQ
+5099
+--- Iteration #29 200000 messages---
+2025/07/08 19:58:08 published 200000 messages to RabbitMQ
+5185
+--- Iteration #30 200000 messages---
+2025/07/08 19:58:16 published 200000 messages to RabbitMQ
+5871
