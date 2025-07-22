@@ -26,12 +26,12 @@ for i in $(seq 1 "$ITER"); do
 
   TMP=$(mktemp)         # captura média impressa pelo consumidor
 
-  go run consumer_kafka.go \
+  go run kafka/consumer_kafka.go \
       -n "$N_MSG" -broker "$BROKER_EXT" -topic "$TOPIC" >"$TMP" &
   CONS_PID=$!
 
   sleep 1
-  run_quiet go run producer_kafka.go \
+  run_quiet go run kafka/producer_kafka.go \
       -n "$N_MSG" -broker "$BROKER_EXT" -topic "$TOPIC"
 
   wait "$CONS_PID"

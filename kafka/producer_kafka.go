@@ -20,7 +20,7 @@ func main() {
 		Brokers:      []string{*addr},
 		Topic:        *topic,
 		Balancer:     &kafka.LeastBytes{},
-		BatchTimeout: 5 * time.Millisecond, // ou até 0
+		BatchTimeout: 0 * time.Millisecond, // ou até 0
 		BatchSize:    1,                    // desativa agregação por quantidade
 	})
 	defer w.Close()
