@@ -8,6 +8,7 @@ import (
 	"math"
 	"strconv"
 	"time"
+	"strings"
 
 	"github.com/segmentio/kafka-go"
 )
@@ -16,13 +17,18 @@ func main() {
 	brokers := flag.String("brokers", "localhost:9092", "comma‑separated broker list")
 	n := flag.Int("n", 1000, "number of messages")
 	topic := flag.String("topic", "bench_topic", "Kafka topic")
+	gid := flag.String("group", "bench-consumer", "consumer group") // NOVO
 	flag.Parse()
 
 	r := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:  split(*brokers),
-		Topic:    *topic,
-		MinBytes: 1, MaxBytes: 1e6,
-	})
+        Brokers:        strings.Split(*brokers, ","),
+        Topic:          *topic,
+        GroupID:        *gid,               // <- chave para manter offset
+        StartOffset:    kafka.LastOffset,   // usa “fim do log” na 1ª vez
+        MinBytes:       1,
+        MaxBytes:       1e6,
+        CommitInterval: time.Second,        // commit automático
+    })
 	defer r.Close()
 
 	var lats []time.Duration
