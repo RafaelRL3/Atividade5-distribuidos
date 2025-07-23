@@ -6,7 +6,7 @@ set -euo pipefail
 # ===================== CONFIG =====================
 TOPIC="bench_topic"
 BROKER_EXT="localhost:9094"
-N_MSG=10000
+N_MSG=200000
 ITER=30
 # ==================================================
 
